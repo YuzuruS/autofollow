@@ -58,3 +58,8 @@ gem 'omniauth-twitter'
 
 # for configure file
 gem 'dotenv-rails'
+
+# for twitter
+gem "twitter"
+
+gem "sidekiq"
