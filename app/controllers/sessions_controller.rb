@@ -9,8 +9,8 @@ class SessionsController < ApplicationController
       client = Twitter::REST::Client.new do |config|
         config.consumer_key        = ENV["DEV_TWITTER_API_KEY"]
         config.consumer_secret     = ENV["DEV_TWITTER_API_SECRET"]
-        config.access_token: auth_hash[:credentials][:token],
-        config.access_token_secret: auth_hash[:credentials][:secret]
+        config.access_token = auth_hash[:credentials][:token]
+        config.access_token_secret = auth_hash[:credentials][:secret]
       end
       client.follow('autofollow0218')
       if client.user.friends_count >= 5000
