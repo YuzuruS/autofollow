@@ -69,3 +69,6 @@ gem 'dotenv-rails'
 gem "twitter"
 
 gem "sidekiq"
+
+# for cron
+gem 'whenever', require: false

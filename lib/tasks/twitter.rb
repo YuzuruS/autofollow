@@ -22,6 +22,8 @@ class Tasks::Twitter
       diff_friend_ids = follower_ids - friend_ids
       client.follow(diff_friend_ids)
     }
-    User.destroy(delete_users)
+    if delete_users.present?
+      User.destroy(delete_users)
+    end
   end
 end
