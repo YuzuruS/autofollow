@@ -32,4 +32,13 @@ class SessionsController < ApplicationController
     reset_session
     redirect_to root_path, notice: 'ログアウトしました'
   end
+
+  def retire
+    if current_user.destroy
+      reset_session
+      redirect_to root_path, notice: 'アカウント削除しました'
+    else
+      redirect_to root_path, alert: 'エラーが発生しました'
+    end
+  end
 end

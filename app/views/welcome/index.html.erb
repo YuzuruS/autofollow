@@ -2,6 +2,7 @@
 <div class="center-block">
   <% if logged_in? %>
       <div><%= link_to 'ログアウト', logout_path %></div>
+      <div><%= link_to 'アカウント削除', retire_path %></div>
   <% else %>
       <div><%= link_to 'Twitterでログイン', '/auth/twitter' %></div>
   <% end %>
