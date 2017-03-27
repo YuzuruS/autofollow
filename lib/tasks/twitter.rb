@@ -1,14 +1,9 @@
 class Tasks::Twitter
   def self.execute
     delete_users = []
-    User.where(:provider => 'twitter').find_each{|user|
-      client = Twitter::REST::Client.new do |config|
-        config.consumer_key        = ENV["DEV_TWITTER_API_KEY"]
-        config.consumer_secret     = ENV["DEV_TWITTER_API_SECRET"]
-        config.access_token        = user.access_token
-        config.access_token_secret = user.access_token_secret
-      end
-      if client.user.followers_count  >= 5000 || client.user.friends_count >= 5000
+    User.where(provider: 'twitter').find_each {|user|
+      twitter_client = TwitterClient.new(user.access_token, user.access_token_secret)
+      if twitter_client.has_too_many_followers? || twitter_client.has_too_many_friends?
         delete_users << user
         next
       end
