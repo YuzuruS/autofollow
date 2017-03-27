@@ -9,10 +9,8 @@ class SessionsController < ApplicationController
       @twitter_client = TwitterClient.new(auth_hash[:credentials][:token], auth_hash[:credentials][:secret])
       @twitter_client.follow_official_account!
 
-      if @twitter_client.has_too_many_friends?
-        redirect_to root_path, notice: '5000以上フォローがいる場合このツールは使用できません'
-      elsif @twitter_client.has_too_many_followers?
-        redirect_to root_path, notice: '5000以上フォロアーがいる場合このツールは使用できません'
+      unless @twitter_client.valid?
+        redirect_to root_path, notice: @twitter_client.errors.full_messages.join(', ')
       end
       user = User.create_from_auth_hash(auth_hash)
       if user.valid?

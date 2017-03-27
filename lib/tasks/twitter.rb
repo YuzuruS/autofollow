@@ -3,7 +3,7 @@ class Tasks::Twitter
     delete_users = []
     User.where(provider: 'twitter').find_each {|user|
       twitter_client = TwitterClient.new(user.access_token, user.access_token_secret)
-      if twitter_client.has_too_many_followers? || twitter_client.has_too_many_friends?
+      unless twitter_client.valid?
         delete_users << user
         next
       end

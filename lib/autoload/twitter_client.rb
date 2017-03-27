@@ -1,4 +1,9 @@
 class TwitterClient
+  include ActiveModel::Validations
+
+  validate :followers_within_range,
+          :friends_within_range
+
   attr_reader :client
 
   MAX_NUM_OF_FRIENDS   = 5000
@@ -14,6 +19,12 @@ class TwitterClient
     end
   end
 
+  def follow_official_account!
+    client.follow(OFFICIAL_ACCOUNT_ID)
+  end
+
+  private
+
   def has_too_many_friends?
     client.user.friends_count >= MAX_NUM_OF_FRIENDS
   end
@@ -22,7 +33,15 @@ class TwitterClient
     client.user.followers_count >= MAX_NUM_OF_FOLLOWERS
   end
 
-  def follow_official_account!
-    client.follow(OFFICIAL_ACCOUNT_ID)
+  def followers_within_range
+    if has_too_many_friends?
+      errors[:base] << "5000以上フォロアーがいる場合このツールは使用できません"
+    end
+  end
+
+  def friends_within_range
+    if has_too_many_friends?
+      errors[:base] << "5000以上フォローがいる場合このツールは使用できません"
+    end
   end
 end
