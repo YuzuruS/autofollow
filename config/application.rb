@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Autofollow
   class Application < Rails::Application
-    config.autoload_paths += Dir["#{config.root}/lib"]
+    config.autoload_paths += Dir["#{config.root}/lib/autoload"]
     config.enable_dependency_loading = true
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

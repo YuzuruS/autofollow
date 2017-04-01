@@ -20,17 +20,17 @@ class TwitterClient
   end
 
   def follow_official_account!
-    client.follow(OFFICIAL_ACCOUNT_ID)
+    @client.follow(OFFICIAL_ACCOUNT_ID)
   end
 
   private
 
   def has_too_many_friends?
-    client.user.friends_count >= MAX_NUM_OF_FRIENDS
+    @client.user.friends_count >= MAX_NUM_OF_FRIENDS
   end
 
   def has_too_many_followers?
-    client.user.followers_count >= MAX_NUM_OF_FOLLOWERS
+    @client.user.followers_count >= MAX_NUM_OF_FOLLOWERS
   end
 
   def followers_within_range

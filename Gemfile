@@ -72,3 +72,8 @@ gem "sidekiq"
 
 # for cron
 gem 'whenever', require: false
+
+group :development do
+  # debuggers
+  gem 'pry-byebug'
+end
